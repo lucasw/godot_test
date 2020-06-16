@@ -1,9 +1,6 @@
-extends Area2D
+extends RigidBody2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+# Declare member variables here
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
 var fireballs = preload("res://fireballs.tscn")
@@ -15,18 +12,10 @@ var last_fire_alternate = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
     screen_size = get_viewport_rect().size
+    print('player rigid body 2d')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-    var velocity = Vector2()
-    if Input.is_action_pressed("ui_right"):
-        velocity.x += 1
-    if Input.is_action_pressed("ui_left"):
-        velocity.x -= 1
-    if Input.is_action_pressed("ui_down"):
-        velocity.y += 1
-    if Input.is_action_pressed("ui_up"):
-        velocity.y -= 1
     if Input.is_action_pressed("ui_accept"):
         if last_fire_countdown <= 0:
             print('fire!')
@@ -35,36 +24,54 @@ func _process(delta):
             # bullets.push_back(fireball)
             var bullet_pos = position
             bullet_pos.y -= 10
+            var alternate_scale = 24
             if last_fire_alternate:
-                bullet_pos.x -= 24
+                bullet_pos += transform.x * alternate_scale
             else:
-                bullet_pos.x += 24
+                bullet_pos -= transform.x * alternate_scale
             last_fire_alternate = !last_fire_alternate
-            fireball.start(bullet_pos)
+            fireball.start(bullet_pos, -transform.y)
             last_fire_countdown = 20
     if Input.is_action_pressed("ui_select"):
         pass
-    if velocity.length() > 0:
-        velocity = velocity.normalized() * speed
     
     if last_fire_countdown > 0:
         last_fire_countdown -= 1
-        
-    position += velocity * delta
-    position.x = clamp(position.x, 0, screen_size.x)
-    position.y = clamp(position.y, 0, screen_size.y)
     
     # for bullet in bullets:
         # pass
         # if has_node(bullet):
         #     bullet._process(delta)
-
+    
 func start(pos):
     print('player starting')
     position = pos
     show()
     $CollisionShape2D.disabled = false
-    
-    
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+    var force = Vector2()
+    if Input.is_action_pressed("ui_right"):
+        force.x += 1
+    if Input.is_action_pressed("ui_left"):
+        force.x -= 1
+    if Input.is_action_pressed("ui_down"):
+        force.y += 1
+    if Input.is_action_pressed("ui_up"):
+        force.y -= 1
+    var speed = 3400.0
+    if force.length() > 0:
+        force = force.normalized() * speed
+
+    if (force != Vector2()):
+        apply_central_impulse(force * delta)
+        # print(force)
+
+func _integrate_forces(state):
+    var max_speed = 200
+    if state.linear_velocity.length() > max_speed:
+        state.linear_velocity=state.linear_velocity.normalized() * max_speed
+        
 func _exit_tree():
-    print('exiting')
+    print('player exiting')

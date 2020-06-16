@@ -16,7 +16,6 @@ func _ready():
         pos.y = 60
         enemy.start(pos)
         add_child(enemy)
-        # TODO(lucasw) instance Enemy ships
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
