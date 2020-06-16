@@ -10,7 +10,7 @@ var fireballs = preload("res://fireballs.tscn")
 # var level = preload("res://main.tscn")
 var last_fire_countdown = 0
 var last_fire_alternate = false
-var bullets = []
+# var bullets = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +32,7 @@ func _process(delta):
             print('fire!')
             var fireball = fireballs.instance()  # .get_node("player_fireball")
             owner.add_child(fireball)
-            bullets.push_back(fireball)
+            # bullets.push_back(fireball)
             var bullet_pos = position
             bullet_pos.y -= 10
             if last_fire_alternate:
@@ -54,8 +54,8 @@ func _process(delta):
     position.x = clamp(position.x, 0, screen_size.x)
     position.y = clamp(position.y, 0, screen_size.y)
     
-    for bullet in bullets:
-        pass
+    # for bullet in bullets:
+        # pass
         # if has_node(bullet):
         #     bullet._process(delta)
 

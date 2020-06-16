@@ -10,7 +10,7 @@ export var speed = 600
 # Called when the node enters the scene tree for the first time.
 func _ready():
     hide()
-    print('test')
+    # print('test')
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +21,7 @@ func start(pos):
     position = pos
     show()
     $CollisionShape2D.disabled = false
-    print(position)
+    # print(position)
     
 func _process(delta):
     var velocity = Vector2()
@@ -35,4 +35,9 @@ func _process(delta):
 #     queue_free()
     
 func _exit_tree():
-    print('fireball exiting')
+    pass
+    # print('fireball exiting')
+
+
+func _on_player_fireball_area_shape_entered(area_id, area, area_shape, self_shape):
+    queue_free()
