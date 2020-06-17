@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://soldier.png" type="Texture" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 7.6549
+height = 13.5616
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 3.56312, 5.00522 )
+
+[node name="Soldier" type="KinematicBody2D"]
+collision_mask = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="soldier" type="Sprite" parent="."]
+position = Vector2( -0.540348, -1.28038 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -0.515135, 11.1695 )
+rotation = 1.5708
+shape = SubResource( 2 )

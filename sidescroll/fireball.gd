@@ -1,40 +1,46 @@
-extends Area2D
+extends KinematicBody2D
 
-export var speed = 600
+var count = 0
+var max_count = 20
+export var speed = 500
 export var direction = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    hide()
-    # print('test')
+	show()
+	# print('test')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #    pass
 
 func start(pos, dir):
-    position = pos
-    direction = dir
-    show()
-    $CollisionShape2D.disabled = false
-    # print(position)
-    
-func _process(delta):
-    var velocity = direction * speed
-    position += velocity * delta
-    # print('bullet ' + str(position))
-    var screen_size = get_viewport_rect().size
-    var off_upper_left = position.y < -50 or position.x < -50
-    var off_lower_right = position.y > screen_size.y or position.x > screen_size.x
-    if off_upper_left or off_lower_right:
-        queue_free()
+	position = pos
+	direction = dir
+	
+func _physics_process(delta):
+	var velocity = direction.normalized() * speed
+	var collision_info = move_and_collide(velocity * delta)
+	if collision_info:
+		print('fireball collision')
+		queue_free()
+	count += 1
+	# print('bullet ' + str(position))
+	if count > max_count:
+		queue_free()
 
 # func _on_VisibilityNotifier2D_screen_exited():
 #     queue_free()
-    
+	
 func _exit_tree():
-    pass
-    # print('fireball exiting')
+	pass
+	# print('fireball exiting')
 
 func _on_player_fireball_area_shape_entered(area_id, area, area_shape, self_shape):
-    queue_free()
+	print("player fireball area shape entered")
+	queue_free()
+
+
+func _on_player_fireball_body_entered(body):
+	print("player fireball body entered")
+	pass # Replace with function body.
