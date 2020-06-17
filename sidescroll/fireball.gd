@@ -24,6 +24,15 @@ func _physics_process(delta):
 	if collision_info:
 		print('fireball collision')
 		queue_free()
+		
+		var tilemap = get_node('/root/Platform').get_node('TileMap')
+		var cell = tilemap.world_to_map(collision_info.position - collision_info.normal)
+		if cell:
+			var tile_id = tilemap.get_cellv(cell)
+			if tile_id == 1:
+				tilemap.set_cell(cell.x, cell.y, -1)
+				print(cell)
+				print(tile_id)
 	count += 1
 	# print('bullet ' + str(position))
 	if count > max_count:

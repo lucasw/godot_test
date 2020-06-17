@@ -9,6 +9,7 @@ var move = Vector2()
 var vel = Vector2()
 var up = Vector2(0, -1)  # , 0)
 var jumping = false
+var spin_jumping = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -59,8 +60,11 @@ func _physics_process(delta):
 	
 	if is_on_floor():
 		jumping = false;
+		spin_jumping = false;
 		if Input.is_action_pressed("ui_accept"):
 			move.y = -4
+			if pressing_left_or_right:
+				spin_jumping = true
 			jumping = true
 		else:
 			move.y = 0
@@ -70,7 +74,7 @@ func _physics_process(delta):
 	else:
 		move.y += 0.1
 		
-	if jumping:
+	if spin_jumping:
 		if $soldier.flip_h:
 			rotation_degrees -= 15
 		else:
