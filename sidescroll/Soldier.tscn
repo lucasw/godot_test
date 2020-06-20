@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://soldier.png" type="Texture" id=1]
+[ext_resource path="res://spin.png" type="Texture" id=2]
+[ext_resource path="res://Soldier.gd" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 7.6549
@@ -9,8 +11,12 @@ height = 13.5616
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 3.56312, 5.00522 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 7.53128, 15.061 )
+
 [node name="Soldier" type="KinematicBody2D"]
-collision_mask = 26
+collision_mask = 24
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -23,3 +29,17 @@ texture = ExtResource( 1 )
 position = Vector2( -0.515135, 11.1695 )
 rotation = 1.5708
 shape = SubResource( 2 )
+
+[node name="spin" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0.342529, 0.920036 )
+texture = ExtResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 1024
+collision_mask = 2048
+
+[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.0313339, -0.313361 )
+shape = SubResource( 3 )
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]

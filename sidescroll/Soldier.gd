@@ -2,18 +2,27 @@ extends KinematicBody2D
 
 var fireballs = preload("res://fireballs.tscn")
 # Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 var move = Vector2()
 var vel = Vector2()
 var up = Vector2(0, -1)  # , 0)
 var jumping = false
 var spin_jumping = false
+var health = 100
+# var invincibility_count = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("ready player 1")
+
+func _on_Area2D_area_entered(area):
+	print("player area entered " + area.get_name())
+	# if invincibility_count == 0:
+	health -= 5
+	print("health " + str(health))
+	# 	 invincibility_count += 60
+	# else:
+	# 	invincibility_count -= 1
+	
 
 func _physics_process(delta):
 	var pressing_left_or_right = false
@@ -57,6 +66,7 @@ func _physics_process(delta):
 		
 	var mv_scaled = move * 100
 	move_and_slide(mv_scaled, up)
+	#var collision = move_and_collide(mv_scaled)
 	
 	if is_on_floor():
 		jumping = false;
@@ -75,13 +85,16 @@ func _physics_process(delta):
 		move.y += 0.1
 		
 	if spin_jumping:
+		$spin.show()
+		$soldier.hide()
 		if $soldier.flip_h:
-			rotation_degrees -= 15
+			$spin.flip_h = true
+			# rotation_degrees -= 15
 		else:
-			rotation_degrees += 15
+			$spin.flip_h = false
+			# rotation_degrees += 15
+		# $spin.flip_v = !$spin.flip_v
 	else:
-		rotation_degrees = 0
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+		$spin.hide()
+		$soldier.show()
+		#rotation_degrees = 0
