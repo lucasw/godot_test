@@ -13,7 +13,7 @@
 motion_scale = Vector2( 0.2, 0.2 )
 
 [node name="mountains" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( -42.957, -72.2386 )
+position = Vector2( -42.957, -71.7386 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
