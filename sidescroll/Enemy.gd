@@ -1,4 +1,5 @@
-extends Area2D
+extends KinematicBody2D
+
 
 
 # Declare member variables here. Examples:
@@ -8,7 +9,12 @@ extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("rebyreby")
 	pass # Replace with function body.
+func _physics_process(delta):
+	print("enemy move")
+	var enemymove = Vector2(50,0)
+	move_and_collide(enemymove)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
