@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://cube.dae" type="PackedScene" id=1]
+[ext_resource path="res://spatialmaterial.tres" type="Material" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="ConcavePolygonShape" id=3]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[node name="meshes" type="Spatial"]
+
+[node name="cube" type="MeshInstance" parent="." instance=ExtResource( 1 )]
+mesh = SubResource( 1 )
+material/0 = ExtResource( 3 )
+
+[node name="StaticBody" type="StaticBody" parent="cube"]
+
+[node name="CollisionShape" type="CollisionShape" parent="cube/StaticBody"]
+shape = SubResource( 3 )
