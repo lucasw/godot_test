@@ -35,7 +35,7 @@ func _physics_process(delta):
 		$soldier.flip_h = false
 		pressing_left_or_right = true
 	if Input.is_action_just_pressed("fire"):
-		print("fire")
+		# print("fire")
 		var fireball = fireballs.instance()  # .get_node("player_fireball")
 		owner.add_child(fireball)
 		# bullets.push_back(fireball)
@@ -98,3 +98,16 @@ func _physics_process(delta):
 		$spin.hide()
 		$soldier.show()
 		#rotation_degrees = 0
+
+func _process(delta):
+	# detect the lava tiles
+	var tile_map_node = get_parent().get_node("TileMap2")
+	var pos = get_global_transform().get_origin()
+	var tile_map_pos = tile_map_node.world_to_map(Vector2(pos.x, pos.y))
+	var cell = tile_map_node.get_cellv(tile_map_pos)
+	if cell == 2:
+		print("collided with lava")
+	
+	if health <= 0:
+		get_tree().reload_current_scene()
+	

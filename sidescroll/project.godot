@@ -75,6 +75,8 @@ fire={
 2d_physics/layer_4="EnemyBullet"
 2d_render/layer_5="Walls"
 2d_physics/layer_5="Wall"
+2d_physics/layer_10="Player Hitbox"
+2d_physics/layer_11="Enemy Hitbox"
 
 [physics]
 

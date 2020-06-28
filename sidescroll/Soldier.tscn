@@ -35,11 +35,11 @@ visible = false
 position = Vector2( 0.342529, 0.920036 )
 texture = ExtResource( 2 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="soldier_area" type="Area2D" parent="."]
 collision_layer = 1024
 collision_mask = 2048
 
-[node name="hitbox" type="CollisionShape2D" parent="Area2D"]
+[node name="hitbox" type="CollisionShape2D" parent="soldier_area"]
 position = Vector2( -0.0313339, -0.313361 )
 shape = SubResource( 3 )
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="soldier_area" to="." method="_on_Area2D_area_entered"]
