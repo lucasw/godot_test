@@ -1,6 +1,8 @@
 extends KinematicBody
 
 var up_dir = Vector3(0, 1, 0)
+var bullet = preload("res://bullet.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,7 +39,7 @@ func _physics_process(delta):
 	
 	var camera_look = camera_rot.basis * Vector3(0, 0, 1)
 	var rotate_scale = 0.05
-	print(camera_look)
+	# print(camera_look)
 	
 	if camera_look.z > 0.0:  # and camera_look.y <= 1.0:
 		$Camera.rotate_x((-rotate_down + rotate_up) * rotate_scale)
@@ -49,3 +51,18 @@ func _physics_process(delta):
 			$Camera.rotate_x(0.05)
 		else:
 			$Camera.rotate_x(-0.05)
+			
+	######
+	if Input.is_action_just_pressed('fire'):
+		print('fire')
+		# spawn a bullet
+		var new_bullet = bullet.instance()
+		var aim = $Camera.get_camera_transform().basis * Vector3(0, 0, -1)
+		new_bullet.velocity = aim * 0.5
+		# bullets.push_back(fireball)
+		# var bullet_pos = get_transform().basis
+		# bullet_pos.y -= 10
+		new_bullet.set_translation(get_translation())
+		# bulletl.start(bullet_pos, -transform.y)
+		owner.add_child(new_bullet)
+		
