@@ -9,7 +9,7 @@ height = 0.394106
 
 [node name="Spatial" type="KinematicBody"]
 collision_layer = 2
-collision_mask = 20
+collision_mask = 21
 script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]

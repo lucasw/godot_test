@@ -1,13 +1,17 @@
 extends KinematicBody
 
+var health = 100
 var up_dir = Vector3(0, 1, 0)
 var bullet = preload("res://bullet.tscn")
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func damage(amount):
+	health -= amount
+	print('player damaged ' + str(health))
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	var mv = Vector3()
@@ -54,7 +58,7 @@ func _physics_process(delta):
 			
 	######
 	if Input.is_action_just_pressed('fire'):
-		print('fire')
+		# print('fire')
 		# spawn a bullet
 		var new_bullet = bullet.instance()
 		var aim = $Camera.get_camera_transform().basis * Vector3(0, 0, -1)
@@ -62,7 +66,12 @@ func _physics_process(delta):
 		# bullets.push_back(fireball)
 		# var bullet_pos = get_transform().basis
 		# bullet_pos.y -= 10
-		new_bullet.set_translation(get_translation())
+		new_bullet.set_translation(get_translation() + aim)
 		# bulletl.start(bullet_pos, -transform.y)
 		owner.add_child(new_bullet)
 		
+func _process(delta):
+	if health <= 0:
+		get_tree().reload_current_scene()
+		
+	$Camera/Spatial.scale.x = 0.2 * health / 100.0
