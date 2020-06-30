@@ -1,6 +1,6 @@
 extends KinematicBody
 
-var health = 100
+var health = 40
 var up_dir = Vector3(0, 1, 0)
 var bullet = preload("res://bullet.tscn")
 
