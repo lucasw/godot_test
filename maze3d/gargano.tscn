@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://gargano.png" type="Texture" id=1]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.378228
+height = 0.0906863
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_billboard_mode = 2
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+size = Vector2( 2, 2 )
+
+[node name="gargano" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985517, 0 )
+collision_layer = 2
+collision_mask = 29
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, -0.0910233, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = null
