@@ -8,10 +8,10 @@ extends KinematicBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+    pass # Replace with function body.
 
 func _process(delta):
-	$Camera2D/health.set_text(str($health))
+    $Camera2D/health.set_text(str($health))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
