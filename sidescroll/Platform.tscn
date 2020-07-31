@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://health.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://boss.png" type="Texture" id=6]
 [ext_resource path="res://creeper.png" type="Texture" id=7]
+[ext_resource path="res://zombore.tscn" type="PackedScene" id=8]
 
 [node name="Platform" type="Node2D"]
 
@@ -58,6 +59,9 @@ position = Vector2( 99.6333, -30.2974 )
 
 [node name="enemy5" parent="enemies" instance=ExtResource( 5 )]
 position = Vector2( 309.978, -155.14 )
+
+[node name="zombore" parent="enemies" instance=ExtResource( 8 )]
+position = Vector2( 64.753, 112.274 )
 
 [node name="PlayerSoldier" parent="." instance=ExtResource( 3 )]
 position = Vector2( -54.3061, 106.181 )

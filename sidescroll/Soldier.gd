@@ -107,6 +107,7 @@ func _process(delta):
     var cell = tile_map_node.get_cellv(tile_map_pos)
     if cell == 2:
         print("collided with lava")
+        health -= 5
     
     if health <= 0:
         get_tree().reload_current_scene()
