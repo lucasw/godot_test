@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var vel = Vector2()
 var fireballs = preload("res://red_bullet.tscn")
+var charge = 0
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -27,13 +28,19 @@ func _physics_process(delta):
     move = move.normalized()
     var mv_scaled = move * 100
     move_and_slide(mv_scaled)
-
+    if Input.is_action_pressed("fire"):
+        charge += 1
+        
+    
     if Input.is_action_just_released("fire"):
+        
         var target= get_global_mouse_position()
         
         var dir = (target - position).normalized()
         print(dir)
         var fireball = fireballs.instance()  # .get_node("player_fireball")
+        fireball.max_count = 8 + charge
+        charge = 0
         owner.add_child(fireball)
         fireball.start(position, dir)
         
