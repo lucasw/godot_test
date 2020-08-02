@@ -24,6 +24,13 @@ config/icon="res://icon.png"
 window/size/width=1800
 window/size/height=1000
 
+[input]
+
+enter={
+"deadzone": 0.5,
+"events": [  ]
+}
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

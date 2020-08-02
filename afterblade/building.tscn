@@ -13,26 +13,21 @@ material = SubResource( 1 )
 [node name="building" type="Spatial"]
 
 [node name="building1" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0.153537 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="building2" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0.26324 )
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="building3" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0.555486 )
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0.416777 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="building4" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, -0.282684 )
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, -0.129147 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="building5" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, -0.56653 )
+transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, -0.412993 )
 mesh = SubResource( 2 )
 material/0 = null
