@@ -1,23 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Back_Car.png" type="Texture" id=1]
-[ext_resource path="res://player.gd" type="Script" id=2]
+[ext_resource path="res://Back_Truck.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape" id=1]
-radius = 0.191155
+radius = 0.1795
 height = 0.357349
 
 [sub_resource type="SpatialMaterial" id=2]
 flags_transparent = true
 params_cull_mode = 2
-albedo_texture = ExtResource( 1 )
+albedo_texture = ExtResource( 2 )
 
 [sub_resource type="QuadMesh" id=3]
 material = SubResource( 2 )
 
-[node name="car" type="KinematicBody"]
+[node name="truck" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28956, 0.309718, 28.7496 )
-script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0818737, 0 )

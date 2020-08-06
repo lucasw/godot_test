@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://building.tscn" type="PackedScene" id=1]
 [ext_resource path="res://car.tscn" type="PackedScene" id=2]
 [ext_resource path="res://tiles.meshlib" type="MeshLibrary" id=3]
 [ext_resource path="res://tree.tscn" type="PackedScene" id=4]
 [ext_resource path="res://lamp_post.tscn" type="PackedScene" id=5]
+[ext_resource path="res://truck.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ProceduralSky" id=1]
 sky_top_color = Color( 0.282353, 0.113725, 0.356863, 1 )
@@ -41,16 +42,16 @@ glow_blend_mode = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 mesh_library = ExtResource( 3 )
 data = {
-"cells": PoolIntArray( 0, 0, -1610612736, 0, 1, -1610612736, 0, 2, -1610612736, 0, 3, 0, 0, 4, -1610612736, 0, 5, 536870912, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, -1610612736, 0, 10, 536870912, 0, 11, 0, 0, 12, 536870912, 0, 13, 536870912, 0, 14, 0, 0, 15, -1610612736, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, -1610612736, 0, 20, 0, 0, 21, 0, 0, 22, 536870912, 0, 23, -1610612736, 0, 24, 0, 0, 65491, -1610612736, 0, 65492, 0, 0, 65493, 0, 0, 65494, 0, 0, 65495, -1610612736, 0, 65496, 0, 0, 65497, 0, 0, 65498, 0, 0, 65499, -1610612736, 0, 65500, 0, 0, 65501, 0, 0, 65502, 0, 0, 65503, 0, 0, 65504, 0, 0, 65505, -1610612736, 0, 65506, 0, 0, 65507, 0, 0, 65508, -1610612736, 0, 65509, -1610612736, 0, 65510, 0, 0, 65511, 0, 0, 65512, 0, 0, 65513, -1610612736, 0, 65514, -1610612736, 0, 65515, 536870912, 0, 65516, 0, 0, 65517, -1610612736, 0, 65518, 0, 0, 65519, 0, 0, 65520, 1073741824, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65534, 0, 0, 65535, 0 )
+"cells": PoolIntArray( 0, 0, 536870912, 0, 1, 536870912, 0, 2, 536870912, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 1610612736, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 1610612736, 0, 24, 536870912, 0, 65491, -536870912, 0, 65492, 0, 0, 65493, 536870912, 0, 65494, -1610612736, 0, 65495, 0, 0, 65496, 0, 0, 65497, 0, 0, 65498, -1610612736, 0, 65499, 0, 0, 65500, -1610612736, 0, 65501, 0, 0, 65502, 0, 0, 65503, 0, 0, 65504, 0, 0, 65505, 0, 0, 65506, 0, 0, 65507, 0, 0, 65508, 0, 0, 65509, 0, 0, 65510, 0, 0, 65511, 0, 0, 65512, 0, 0, 65513, 0, 0, 65514, 0, 0, 65515, 0, 0, 65516, 536870912, 0, 65517, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 536870912, 0, 65527, 536870912, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65534, 0, 0, 65535, 0 )
 }
 __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="car" parent="." instance=ExtResource( 2 )]
+[node name="player_car" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28956, 0.447078, 28.7496 )
 
-[node name="Camera" type="Camera" parent="car"]
+[node name="Camera" type="Camera" parent="player_car"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.203694, 0.826658 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -94,6 +95,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.10293, 0, -27.7835 )
 
 [node name="building12" parent="buildings" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.10293, 0, -11.7592 )
+
+[node name="car5" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79015, 0.631753, 42.6516 )
 
 [node name="car2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.586475, 0.326833, -4.65413 )
@@ -152,3 +156,6 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.1605, 0, 0 )
 mesh = SubResource( 4 )
 material/0 = null
+
+[node name="truck" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.28956, 0.309718, 24.6641 )

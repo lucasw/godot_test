@@ -5,7 +5,7 @@ extends KinematicBody
 # var a = 2
 # var b = "text"
 var vel = Vector3()
-
+var up = Vector3(0, 1.0, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,10 +24,16 @@ func _physics_process(delta):
         vel.x -= acc * 0.2
     if Input.is_action_pressed('ui_right'):
         vel.x += acc * 0.2
-    if Input.is_action_just_pressed('ui_select'):
-        vel.y += 5.0 * (1.0 + abs(vel.x))
+
     # TODO(lucasw) can't keep accelerating forever, need to detect
     # down collision and zero out vel.y
     vel.y -= 0.1
-    move_and_slide(vel)
+
+    move_and_slide(vel, up)
     vel *= 0.96
+    if is_on_floor():
+        vel.y = 0.0
+
+        # jump
+        if Input.is_action_just_pressed('ui_select'):
+            vel.y += 5.0 * (1.0 + abs(vel.x))
