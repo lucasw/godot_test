@@ -1,16 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Arm.gd" type="Script" id=1]
+[ext_resource path="res://finger0gui.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.764706, 0.372549, 0.368627, 1 )
 
 [sub_resource type="BoxShape" id=3]
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=4]
 metallic = 1.0
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.258824, 0.501961, 0.247059, 1 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -24,7 +28,7 @@ shape = SubResource( 1 )
 [node name="CSGBox" type="CSGBox" parent="StaticBody/CollisionShape"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00524936, 0, 0.00136261 )
 cast_shadow = 0
-material = SubResource( 4 )
+material = SubResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.66467, 0, 0.747137, 0, 1, 0, -0.747137, 0, 0.66467, 2.78996, 1.28778, 1.28897 )
@@ -32,70 +36,197 @@ transform = Transform( 0.66467, 0, 0.747137, 0, 1, 0, -0.747137, 0, 0.66467, 2.7
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.671391, 0.414961, -0.614037, -0.0486461, 0.851434, 0.522201, 0.739505, -0.320731, 0.591831, -4.33926, 4.03145, 0 )
 shadow_enabled = true
+shadow_contact = 0.2
+directional_shadow_max_distance = 29.2
 
 [node name="Arm" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250154, 0.328745, -1.22722 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250154, 0.58998, -1.22722 )
 script = ExtResource( 1 )
 
 [node name="Base" type="RigidBody" parent="Arm"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04075, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.210952, 0 )
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-angular_velocity = Vector3( 0, 0.1, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Arm/Base"]
-transform = Transform( 0.2, 0, 0, 0, 0.4, 0, 0, 0, 0.2, 0, -1.02804, 0 )
+transform = Transform( 0.2, 0, 0, 0, -3.25841e-08, -0.15, 0, 0.2, -2.44381e-08, 0, 0, 0 )
 shape = SubResource( 3 )
 
 [node name="CSGBox" type="CSGBox" parent="Arm/Base/CollisionShape"]
-transform = Transform( 1, -5.96046e-08, 0, 1.39698e-09, 1, 0, 0, 0, 1, -0.00139177, -0.00922531, 0.00185013 )
-material = SubResource( 5 )
+transform = Transform( 1, -5.96046e-08, 0, 1.39698e-09, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = SubResource( 4 )
 
 [node name="Joint" type="HingeJoint" parent="Arm/Base"]
-transform = Transform( 0.982803, -0.184655, 0, 0.184655, 0.982803, 0, 0, 0, 1, 0, -0.466, 0 )
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.16112, 0 )
 nodes/node_a = NodePath("..")
-nodes/node_b = NodePath("../../RigidBody2")
-angular_limit/enable = true
+nodes/node_b = NodePath("../../Rotation")
 angular_limit/relaxation = 0.25
 motor/enable = true
 motor/target_velocity = 0.0
 motor/max_impulse = 2.0
 
-[node name="RigidBody2" type="RigidBody" parent="Arm"]
-transform = Transform( 0.998372, 0.0570413, 0, -0.0570413, 0.998372, 0, 0, 0, 1, 0.0780532, 1.21349, 0.0509793 )
-mass = 0.5
+[node name="rotate_gui" type="HSlider" parent="Arm/Base"]
+margin_left = 30.6748
+margin_top = 195.945
+margin_right = 310.675
+margin_bottom = 238.945
+min_value = -100.0
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "Rotate around vertical"
+}
+
+[node name="Rotation" type="RigidBody" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.162197, 0 )
 angular_velocity = Vector3( 0, 0.1, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Arm/RigidBody2"]
-transform = Transform( 0.1, 0, 0, 0, 0.6, 0, 0, 0, 0.1, 0, 0, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="Arm/Rotation"]
+transform = Transform( 0.15, 0, 0, 0, 0.2, 0, 0, 0, 0.15, 0, 0, 0 )
 shape = SubResource( 3 )
 
-[node name="CSGBox" type="CSGBox" parent="Arm/RigidBody2/CollisionShape"]
+[node name="CSGBox" type="CSGBox" parent="Arm/Rotation/CollisionShape"]
 transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 0, 1, 0, 0, 0 )
-material = SubResource( 5 )
+material = SubResource( 4 )
 
-[node name="Joint" type="HingeJoint" parent="Arm/RigidBody2"]
-transform = Transform( 0.97067, -0.240414, 0, 0.240414, 0.97067, 0, 0, 0, 1, 0, 0.628, 0 )
+[node name="Joint" type="HingeJoint" parent="Arm/Rotation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.246588, 0 )
 nodes/node_a = NodePath("..")
-nodes/node_b = NodePath("../../RigidBody3")
+nodes/node_b = NodePath("../../UpperArm")
 angular_limit/enable = true
 angular_limit/relaxation = 0.2
 motor/enable = true
 motor/target_velocity = 0.0
 motor/max_impulse = 2.0
 
-[node name="RigidBody3" type="RigidBody" parent="Arm"]
-transform = Transform( 0.998372, 0.0570413, 0, -0.0570413, 0.998372, 0, 0, 0, 1, 0.186189, 2.26516, 0.0509793 )
+[node name="CSGCylinder" type="CSGCylinder" parent="Arm/Rotation/Joint"]
+transform = Transform( 0.1, 0, 0, 0, -3.42133e-08, -0.1, 0, 0.21, -1.62921e-08, 0, 0, 0 )
+sides = 20
+material = SubResource( 5 )
+
+[node name="rotate_gui" type="HSlider" parent="Arm/Rotation"]
+margin_left = 34.1084
+margin_top = 149.123
+margin_right = 314.108
+margin_bottom = 192.123
+min_value = -100.0
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "Rotate around vertical"
+}
+
+[node name="UpperArm" type="RigidBody" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04421, 0 )
+mass = 0.4
 angular_velocity = Vector3( 0, 0.1, 0 )
 
-[node name="CollisionShape" type="CollisionShape" parent="Arm/RigidBody3"]
+[node name="CollisionShape" type="CollisionShape" parent="Arm/UpperArm"]
+transform = Transform( 0.1, 0, 0, 0, 0.6, 0, 0, 0, 0.1, 0, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="Arm/UpperArm/CollisionShape"]
+transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = SubResource( 4 )
+
+[node name="Elbow" type="HingeJoint" parent="Arm/UpperArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.628, 0 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../ForeArm")
+angular_limit/enable = true
+angular_limit/relaxation = 0.2
+motor/enable = true
+motor/target_velocity = 0.0
+motor/max_impulse = 2.0
+
+[node name="CSGCylinder" type="CSGCylinder" parent="Arm/UpperArm/Elbow"]
+transform = Transform( 0.1, 0, 0, 0, -3.42133e-08, -0.1, 0, 0.21, -1.62921e-08, 0, 0, 0 )
+sides = 20
+material = SubResource( 5 )
+
+[node name="rotate_gui" type="HSlider" parent="Arm/UpperArm"]
+margin_left = 35.357
+margin_top = 99.1792
+margin_right = 315.357
+margin_bottom = 142.179
+min_value = -100.0
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "Rotate around vertical"
+}
+
+[node name="ForeArm" type="RigidBody" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.15417, 0 )
+mass = 0.2
+angular_velocity = Vector3( 0, 0.1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Arm/ForeArm"]
 transform = Transform( 0.1, 0, 0, 0, 0.4, 0, 0, 0, 0.1, 0, 0, 0 )
 shape = SubResource( 3 )
 
-[node name="CSGBox" type="CSGBox" parent="Arm/RigidBody3/CollisionShape"]
+[node name="CSGBox" type="CSGBox" parent="Arm/ForeArm/CollisionShape"]
 transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = SubResource( 4 )
+
+[node name="Wrist" type="HingeJoint" parent="Arm/ForeArm"]
+transform = Transform( 0.999999, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0.407883, 0 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Gripper")
+angular_limit/relaxation = 0.25
+motor/enable = true
+motor/target_velocity = 0.0
+motor/max_impulse = 2.0
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="Arm/ForeArm/Wrist"]
+transform = Transform( 0.1, 0, 0, 0, -3.42134e-08, -0.1, 0, 0.21, -1.62921e-08, 0, 0, 0 )
+sides = 20
 material = SubResource( 5 )
+
+[node name="Gripper" type="RigidBody" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.69429, 0 )
+mass = 0.1
+angular_velocity = Vector3( 0, 0.1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Arm/Gripper"]
+transform = Transform( 0.2, 0, 0, 0, 0.04, 0, 0, 0, 0.1, 0, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="Arm/Gripper/CollisionShape"]
+transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = SubResource( 4 )
+
+[node name="finger0" type="SliderJoint" parent="Arm/Gripper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.105759, 0.0721514, 0 )
+nodes/node_a = NodePath("..")
+nodes/node_b = NodePath("../../Finger0")
+linear_limit/upper_distance = 0.06
+linear_limit/lower_distance = -0.06
+
+[node name="finger0gui" type="HSlider" parent="Arm/Gripper"]
+margin_left = 97.8086
+margin_top = -60.3115
+margin_right = 271.809
+margin_bottom = -11.3115
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Finger0" type="RigidBody" parent="Arm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.165433, 2.88918, 0 )
+mass = 0.05
+angular_velocity = Vector3( 0, 0.1, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Arm/Finger0"]
+transform = Transform( 0.04, 0, 0, 0, 0.15, 0, 0, 0, 0.1, 0, 0, 0 )
+shape = SubResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="Arm/Finger0/CollisionShape"]
+transform = Transform( 1, 0, 0, 4.65661e-10, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = SubResource( 4 )
+[connection signal="value_changed" from="Arm/Base/rotate_gui" to="Arm" method="_on_rotate_gui_value_changed"]
+[connection signal="value_changed" from="Arm/Rotation/rotate_gui" to="Arm" method="_on_rotate_shoulder_gui_value_changed"]
+[connection signal="value_changed" from="Arm/UpperArm/rotate_gui" to="Arm" method="_on_rotate_elbow_gui_value_changed"]
+[connection signal="value_changed" from="Arm/Gripper/finger0gui" to="Arm/Gripper/finger0gui" method="_on_finger0gui_value_changed"]
