@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://noise_crate.png" type="Texture" id=1]
 [ext_resource path="res://ground.png" type="Texture" id=2]
@@ -21,6 +21,11 @@ normal_enabled = true
 normal_scale = 0.15
 normal_texture = ExtResource( 2 )
 uv1_scale = Vector3( 10, 10, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+subdivide_width = 2
+subdivide_height = 2
+subdivide_depth = 2
 
 [node name="Spatial" type="Spatial"]
 
@@ -63,7 +68,6 @@ smooth_faces = false
 
 [node name="Camera" type="Camera" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -5.6426e-07, 1, 0, -1, -5.6426e-07, 0, -0.442098, -1.40249 )
-current = true
 
 [node name="OmniLight" type="OmniLight" parent="Player/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, -1.19209e-07, 0, 1.19209e-07, 1, 0, 0.578236, -0.480944 )
@@ -88,7 +92,8 @@ transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 9.50565
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="CSGBox" type="CSGBox" parent="rusted_metal/floor"]
+[node name="CSGMesh" type="CSGMesh" parent="rusted_metal/floor"]
+mesh = SubResource( 6 )
 material = ExtResource( 4 )
 
 [node name="rusted_metal2" type="StaticBody" parent="."]
@@ -102,7 +107,7 @@ shape = SubResource( 4 )
 material = ExtResource( 3 )
 
 [node name="rusted_metal3" type="StaticBody" parent="."]
-transform = Transform( -0.0343285, -0.0712657, -0.996866, 0.900926, -0.433974, 0, -0.432614, -0.898103, 0.0791027, -2.38376, 7.58924, -12.4954 )
+transform = Transform( -0.0343285, -0.0712657, -0.996866, 0.59268, -0.804584, 0.0371097, -0.804707, -0.589548, 0.0698578, -2.38376, 7.58924, -12.4954 )
 
 [node name="floor" type="CollisionShape" parent="rusted_metal3"]
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
@@ -123,3 +128,4 @@ material = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.497458, 0, -0.867488, 0, 1, 0, 0.867488, 0, 0.497458, -6.65726, 4.84654, 5.67858 )
+current = true

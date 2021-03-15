@@ -30,7 +30,7 @@ func _process(delta):
     down_vel += down_acc * delta
     mv2.y += down_vel
     
-    var linear_vel = move_and_slide(mv2, up_dir, false, 4, 0.45, false)
+    var linear_vel = move_and_slide(mv2, up_dir, false, 4, 0.65, false)
     if count % 10 == 0:
         print("down_vel {} linear_vel {}, {}".format([down_vel, linear_vel.y, is_on_floor()], "{}"))
     if is_on_floor():
