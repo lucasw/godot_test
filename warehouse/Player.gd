@@ -1,9 +1,9 @@
 extends KinematicBody
 
 var up_dir = Vector3(0, 1, 0)
-var down_acc = -8.5
+var down_acc = -9.5
 var down_vel = 0.0
-
+var count = 0
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -30,10 +30,13 @@ func _process(delta):
     down_vel += down_acc * delta
     mv2.y += down_vel
     
-    var linear_vel = move_and_slide(mv2, up_dir)
-    print("down_vel {} linear_vel {}".format([down_vel, linear_vel.y], "{}"))
-    if linear_vel.y < 0.0:
-        down_vel = linear_vel.y
+    var linear_vel = move_and_slide(mv2, up_dir, false, 4, 0.45, false)
+    if count % 10 == 0:
+        print("down_vel {} linear_vel {}, {}".format([down_vel, linear_vel.y, is_on_floor()], "{}"))
+    if is_on_floor():
+        down_vel = 0.0
+        if Input.get_action_strength('ui_select') > 0.0:
+            down_vel = 8.0
 
     var rotation_val = 0.0
     var rotate_right = Input.get_action_strength('right')
@@ -64,3 +67,4 @@ func _process(delta):
         else:
             $Camera.rotate_x(-0.05)
 
+    count += 1
