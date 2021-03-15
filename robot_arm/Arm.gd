@@ -42,3 +42,22 @@ func _on_rotate_elbow_gui_value_changed(value):
     var value_scaled = value / 100.0
     print(value_scaled)
     joint.set('motor/target_velocity', value_scaled)
+    
+func _on_HSlider_value_changed(value):
+    var joint = self.get_node('ForeArm/Wrist')
+    var value_scaled = value / 100.0
+    print(value_scaled)
+    joint.set('motor/target_velocity', value_scaled)
+    
+func _on_clamp_gui_value_changed(value):
+    var joint0 = self.get_node("Gripper/finger0")
+    var value_scaled0 = value / 100.0
+    print(value_scaled0)
+    joint0.set('motor/target_velocity', value_scaled0)
+    var joint1 = self.get_node("Gripper/finger1")
+    var value_scaled1 = value / 100.0
+    print(value_scaled1)
+    joint1.set('motor/target_velocity', value_scaled1)
+
+
+
