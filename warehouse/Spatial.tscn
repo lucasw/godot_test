@@ -23,11 +23,15 @@ normal_texture = ExtResource( 2 )
 uv1_scale = Vector3( 10, 10, 1 )
 
 [sub_resource type="CubeMesh" id=6]
-subdivide_width = 2
-subdivide_height = 2
-subdivide_depth = 2
+subdivide_width = 3
+subdivide_height = 3
+subdivide_depth = 3
 
 [node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.497458, 0, -0.867488, 0, 1, 0, 0.867488, 0, 0.497458, -6.65726, 4.84654, 5.67858 )
+current = true
 
 [node name="crate" type="RigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86061, 0 )
@@ -50,8 +54,19 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0130239, -9.53674e-07, 0.00564957 )
 material = SubResource( 2 )
 
+[node name="crate3" type="RigidBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.28062, 10.4373, -0.526154 )
+mass = 2.0
+
+[node name="CollisionShape" type="CollisionShape" parent="crate3"]
+shape = SubResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="crate3/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0130239, -9.53674e-07, 0.00564957 )
+material = SubResource( 2 )
+
 [node name="Player" type="KinematicBody" parent="."]
-transform = Transform( 0.358971, -0.933349, 4.0798e-08, 0, -4.37114e-08, -1, 0.933349, 0.358971, -1.56911e-08, 5.10622, 2.93262, 2.1664 )
+transform = Transform( 0.96718, 0.254096, -1.11069e-08, 0, -4.37114e-08, -1, -0.254096, 0.96718, -4.22768e-08, 4.25217, 2.93262, 0.716028 )
 script = ExtResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -63,14 +78,24 @@ transform = Transform( 1, 0, 0, 0, 0.831, 0, 0, 0, 2.884, -0.508, -0.45, 1.489 )
 visible = false
 
 [node name="CSGSphere" type="CSGSphere" parent="Player/CollisionShape"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.495, -7.45058e-08, 4.76837e-07, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -3.55271e-15, -2.22045e-16, -1.22125e-15, 1.495, -4.76837e-07, 4.76837e-07, 0 )
 smooth_faces = false
 
 [node name="Camera" type="Camera" parent="Player"]
 transform = Transform( 1, 0, 0, 0, -5.6426e-07, 1, 0, -1, -5.6426e-07, 0, -0.442098, -1.40249 )
 
+[node name="SpotLight" type="SpotLight" parent="Player/Camera"]
+transform = Transform( 0.999596, -0.0100119, 0.02659, 0.00667727, 0.992427, 0.122658, -0.0276166, -0.122431, 0.992093, 0.429341, -0.920536, -0.546927 )
+light_energy = 2.51
+light_indirect_energy = 0.91
+spot_range = 19.3
+spot_attenuation = 3.86375
+spot_angle = 37.7074
+spot_angle_attenuation = 0.435277
+
 [node name="OmniLight" type="OmniLight" parent="Player/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, -1.19209e-07, 0, 1.19209e-07, 1, 0, 0.578236, -0.480944 )
+visible = false
 shadow_enabled = true
 omni_range = 17.7
 omni_attenuation = 1.68179
@@ -85,14 +110,14 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000657272, 1.90735e-06, 0.00160685 )
 material = SubResource( 5 )
 
-[node name="rusted_metal" type="StaticBody" parent="."]
+[node name="rusted_metal_ps1" type="StaticBody" parent="."]
 transform = Transform( -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0, 1, 9.50565, 8.84298, 0 )
 
-[node name="floor" type="CollisionShape" parent="rusted_metal"]
+[node name="floor" type="CollisionShape" parent="rusted_metal_ps1"]
 transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="CSGMesh" type="CSGMesh" parent="rusted_metal/floor"]
+[node name="CSGMesh" type="CSGMesh" parent="rusted_metal_ps1/floor"]
 mesh = SubResource( 6 )
 material = ExtResource( 4 )
 
@@ -104,6 +129,28 @@ transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
 shape = SubResource( 4 )
 
 [node name="CSGBox" type="CSGBox" parent="rusted_metal2/floor"]
+material = ExtResource( 3 )
+
+[node name="rusted_metal5" type="StaticBody" parent="."]
+transform = Transform( -0.999621, 0.0275555, 0, -0.0275555, -0.999621, 0, 0, 0, 1, -17.0153, 18.7519, -1.28041 )
+
+[node name="platorm" type="CollisionShape" parent="rusted_metal5"]
+transform = Transform( 3, 2.04891e-08, 0, 1.49012e-08, 0.7, 0, 0, 0, 3, -13.0683, 10.8798, -10.6234 )
+shape = SubResource( 4 )
+
+[node name="platferm" type="CSGBox" parent="rusted_metal5/platorm"]
+transform = Transform( 1, 0, 0, -2.98023e-08, 1, 0, 0, 0, 1, 0, 0, 0 )
+material = ExtResource( 3 )
+
+[node name="platform" type="StaticBody" parent="."]
+transform = Transform( -0.999621, 0.0275555, 0, -0.0275555, -0.999621, 0, 0, 0, 1, -16.5932, 19.2645, 8.34655 )
+
+[node name="platorm" type="CollisionShape" parent="platform"]
+transform = Transform( 3, 2.04891e-08, 0, 1.49012e-08, 0.7, 0, 0, 0, 3, -13.0683, 10.8798, -10.6234 )
+shape = SubResource( 4 )
+
+[node name="platferm" type="CSGBox" parent="platform/platorm"]
+transform = Transform( 1, 0, 0, -2.98023e-08, 1, 0, 0, 0, 1, 0, 0, 0 )
 material = ExtResource( 3 )
 
 [node name="rusted_metal3" type="StaticBody" parent="."]
@@ -125,7 +172,3 @@ shape = SubResource( 4 )
 
 [node name="CSGBox" type="CSGBox" parent="rusted_metal4/floor"]
 material = ExtResource( 3 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.497458, 0, -0.867488, 0, 1, 0, 0.867488, 0, 0.497458, -6.65726, 4.84654, 5.67858 )
-current = true

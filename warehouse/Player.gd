@@ -28,15 +28,22 @@ func _process(delta):
     var mv_transformed = mv.rotated(up_dir, rotation.y)
     var mv2 = mv_transformed * 10
     down_vel += down_acc * delta
-    mv2.y += down_vel
     
-    var linear_vel = move_and_slide(mv2, up_dir, false, 4, 0.65, false)
-    if count % 10 == 0:
-        print("down_vel {} linear_vel {}, {}".format([down_vel, linear_vel.y, is_on_floor()], "{}"))
     if is_on_floor():
-        down_vel = 0.0
+        var floor_normal = get_floor_normal()
+        var right_dir = mv2.cross(floor_normal)
+        mv2 = floor_normal.cross(right_dir)
+        
+        down_vel = down_acc * delta
         if Input.get_action_strength('ui_select') > 0.0:
             down_vel = 8.0
+            
+    mv2.y += down_vel
+  
+    var linear_vel = move_and_slide(mv2, up_dir, false, 4, 0.65, false)
+    
+    if count % 10 == 0:
+        print("mv2 {} linear_vel {}, {}".format([mv2, linear_vel, is_on_floor()], "{}"))
 
     var rotation_val = 0.0
     var rotate_right = Input.get_action_strength('right')
