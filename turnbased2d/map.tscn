@@ -1,0 +1,80 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://unit.gd" type="Script" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[sub_resource type="NoiseTexture" id=3]
+width = 32
+height = 16
+
+[sub_resource type="TileSet" id=6]
+0/name = "icon.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 128, 128 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 9
+persistence = 0.563
+lacunarity = 2.24
+
+[sub_resource type="NoiseTexture" id=2]
+width = 100
+height = 100
+noise = SubResource( 1 )
+
+[sub_resource type="OpenSimplexNoise" id=4]
+
+[sub_resource type="NoiseTexture" id=5]
+width = 4
+height = 4
+noise = SubResource( 4 )
+
+[node name="map" type="Sprite"]
+position = Vector2( -0.264862, -0.794601 )
+scale = Vector2( 128, 128 )
+texture = SubResource( 3 )
+centered = false
+
+[node name="tile_map" type="TileMap" parent="."]
+position = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.0078125, 0.0078125 )
+tile_set = SubResource( 6 )
+cell_size = Vector2( 128, 128 )
+cell_custom_transform = Transform2D( 50, 0, 0, 50, 0, 0 )
+cell_tile_origin = 1
+format = 1
+tile_data = PoolIntArray( -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0, -65532, 0, 0, -65531, 0, 0, -65530, 0, 0, -65529, 0, 0, -65528, 0, 0, -65527, 0, 0, -65526, 0, 0, -65525, 0, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, 65535, 0, 0, 131071, 0, 0, 196607, 0, 0, 131073, 0, 0, 262143, 0, 0, 196613, 0, 0, 327679, 0, 0, 262149, 0, 0, 393215, 0, 0, 327683, 0, 0, 458751, 0, 0, 524287, 0, 0, 589823, 0, 0, 655359, 0, 0, 720895, 0, 0, 786431, 0, 0, 851967, 0, 0, 917503, 0, 0, 983039, 0, 0, 1048575, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0 )
+
+[node name="unit" type="Sprite" parent="."]
+position = Vector2( 1, 1 )
+scale = Vector2( 0.0078125, 0.0078125 )
+texture = SubResource( 2 )
+
+[node name="unit" type="Button" parent="unit"]
+anchor_right = 64.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = -6350.0
+margin_bottom = 50.0
+text = "Unit"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="selected_indicator" type="Sprite" parent="unit/unit"]
+position = Vector2( 85, 85 )
+scale = Vector2( 4, 4 )
+texture = SubResource( 5 )
+[connection signal="pressed" from="unit/unit" to="unit/unit" method="_on_unit_pressed"]
